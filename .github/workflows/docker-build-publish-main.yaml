@@ -19,6 +19,7 @@ jobs:
         git fetch --tags --unshallow
         REVISION=$(git describe --tags --dirty)
         echo "target-revision=$REVISION" >> $GITHUB_OUTPUT
+        echo "date=$(date +%F)" >> $GITHUB_OUTPUT
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
     - name: Set up Docker Buildx
@@ -33,6 +34,8 @@ jobs:
       with:
         platforms: linux/amd64,linux/arm/v7,linux/arm64
         tags: |
+          "${{ github.repository }}:${{ steps.revision.outputs.target-revision }}-${{ steps.revision.outputs.date }}"
           "${{ github.repository }}:${{ steps.revision.outputs.target-revision }}"
+          "${{ github.repository }}:${{ steps.revision.outputs.date }}"
           "${{ github.repository }}:latest"
         push: true

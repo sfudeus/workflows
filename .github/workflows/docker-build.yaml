@@ -1,6 +1,10 @@
 name: Docker Build Image
 on:
-  workflow_call: {}
+  workflow_call:
+    inputs:
+      platforms:
+        type: string
+        required: true
 
 jobs:
   build:
@@ -15,5 +19,5 @@ jobs:
     - name: Docker build/push
       uses: docker/build-push-action@v6
       with:
-        platforms: linux/amd64,linux/arm/v7,linux/arm64
+        platforms: ${{ inputs.platforms || 'linux/amd64,linux/arm/v7,linux/arm64' }}
         push: false

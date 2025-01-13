@@ -4,7 +4,8 @@ on:
     inputs:
       platforms:
         type: string
-        required: true
+        required: false
+        default: linux/amd64,linux/arm/v7,linux/arm64
 
 jobs:
   build:
@@ -19,5 +20,5 @@ jobs:
     - name: Docker build/push
       uses: docker/build-push-action@v6
       with:
-        platforms: ${{ inputs.platforms || 'linux/amd64,linux/arm/v7,linux/arm64' }}
+        platforms: ${{ inputs.platforms }}
         push: false

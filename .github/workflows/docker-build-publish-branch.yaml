@@ -4,7 +4,8 @@ on:
     inputs:
       platforms:
         type: string
-        required: true
+        required: false
+        default: linux/amd64,linux/arm/v7,linux/arm64
     secrets:
       DOCKER_USERNAME:
         required: true
@@ -35,7 +36,7 @@ jobs:
     - name: Docker build/push
       uses: docker/build-push-action@v6
       with:
-        platforms: ${{ inputs.platforms || 'linux/amd64,linux/arm/v7,linux/arm64' }}
+        platforms: ${{ inputs.platforms }}
         tags: |
           "${{ github.repository }}:${{ steps.revision.outputs.branch }}-${{ steps.revision.outputs.date }}"
           "${{ github.repository }}:${{ steps.revision.outputs.branch }}"

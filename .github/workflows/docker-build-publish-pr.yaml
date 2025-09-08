@@ -39,7 +39,7 @@ jobs:
           "${{ github.repository }}:${{ inputs.tag }}"
         push: true
     - name: Comment docker repo
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           github.rest.issues.createComment({
